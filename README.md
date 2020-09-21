@@ -4,3 +4,5 @@
 
 - newBLog
    - 新博客的静态资源
+- ssr
+   - react-ssr静态资源
