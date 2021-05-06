@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Babel-polyfill | hfzvictory</title><meta name="description" content="Babel-polyfill [[toc]] @babel&#x2F;preset-env, @babel&#x2F;polyfill和@babel&#x2F;plugin-transform-runtime这可以说是babel官方的得意之作，最早的时候没有这个包，有的是babel-preset-es2015这样的包，后来每次新标准发布之后，就要新加一个包。babel顺应民意，发布了babel-preset-env这个包，它一"><meta name="keywords" content="和振峰博客，web前端，node全栈工程师，hzfvictory"><meta name="author" content="hfzvictory,feng960106@163.com"><meta name="copyright" content="hfzvictory"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Babel-polyfill"><meta name="twitter:description" content="Babel-polyfill [[toc]] @babel&#x2F;preset-env, @babel&#x2F;polyfill和@babel&#x2F;plugin-transform-runtime这可以说是babel官方的得意之作，最早的时候没有这个包，有的是babel-preset-es2015这样的包，后来每次新标准发布之后，就要新加一个包。babel顺应民意，发布了babel-preset-env这个包，它一"><meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Babel-polyfill"><meta property="og:url" content="http://file.jing999.cn/2019/01/16/workspace/Webpack/babel_polyfill/"><meta property="og:site_name" content="hfzvictory"><meta property="og:description" content="Babel-polyfill [[toc]] @babel&#x2F;preset-env, @babel&#x2F;polyfill和@babel&#x2F;plugin-transform-runtime这可以说是babel官方的得意之作，最早的时候没有这个包，有的是babel-preset-es2015这样的包，后来每次新标准发布之后，就要新加一个包。babel顺应民意，发布了babel-preset-env这个包，它一"><meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="article:published_time" content="2019-01-16T00:00:00.000Z"><meta property="article:modified_time" content="2020-09-09T03:04:55.866Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://file.jing999.cn/2019/01/16/workspace/Webpack/babel_polyfill/"><link rel="prev" title="ES6-新增特性一览" href="http://file.jing999.cn/2019/01/16/workspace/Js/es6/"><link rel="next" title="Webpack的使用" href="http://file.jing999.cn/2019/01/14/workspace/Webpack/use/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: hfzvictory","link":"链接: ","source":"来源: hfzvictory","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: false,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://ae01.alicdn.com/kf/H9ae3136bf5e440239fa2c611632fbd09H.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">104</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">99</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#babel-preset-env-babel-polyfill和-babel-plugin-transform-runtime"><span class="toc-number">1.</span> <span class="toc-text">@babel&#x2F;preset-env, @babel&#x2F;polyfill和@babel&#x2F;plugin-transform-runtime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#polyfill了解下"><span class="toc-number">2.</span> <span class="toc-text">polyfill了解下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#babel7中-corejs-和-corejs2-的区别"><span class="toc-number">3.</span> <span class="toc-text">babel7中 corejs 和 corejs2 的区别</span></a></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div class="post-bg" id="nav" style="background-image: url(https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">hfzvictory</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Babel-polyfill</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-01-16 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-01-16</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-09-09 03:04:55"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-09-09</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Webpack/">Webpack</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Webpack/Babel-polyfill/">Babel-polyfill</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.8k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 6 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><strong class='old-blog'>Babel-polyfill</strong></p>
+<p>[[toc]]</p>
+<h3 id="babel-preset-env-babel-polyfill和-babel-plugin-transform-runtime"><a href="#babel-preset-env-babel-polyfill和-babel-plugin-transform-runtime" class="headerlink" title="@babel/preset-env, @babel/polyfill和@babel/plugin-transform-runtime"></a>@babel/preset-env, @babel/polyfill和@babel/plugin-transform-runtime</h3><p>这可以说是babel官方的得意之作，最早的时候没有这个包，有的是babel-preset-es2015这样的包，后来每次新标准发布之后，就要新加一个包。<br/><br>babel顺应民意，发布了babel-preset-env这个包，它一次性囊括了已发布的所有标准包。<br/><br>首先我们需要明确一下，preset-env的首要作用，不是帮我们把ES6+代码转成ES5.它的首要作用是认读ES6+代码。<br/><br>在使用preset-env之前，babel是无法认识ES6+代码的，运行时会报Token错误。在使用preset-env之后，babel才能认识这些代码语法，并将它们抽象出AST树。<br/><br>preset-env本身包含了一大堆plugin，并通过配置来控制插件，从而控制转码效果<br/></p>
+<p><strong><code>@babel/preset-env</code></strong></p>
+<p><strong>targets</strong><br>控制目标浏览器的版本</p>
+<p><strong>modules</strong><br>默认为commonjs，设置为false时，不会转码模块加载，import from 语法不会转码</p>
+<p><strong>useBuiltIns</strong><br>是否自动加载polyfill。它有三个值可选：false（默认）, entry, usage。</p>
+<p><strong>corejs</strong><br>承接useBuiltIns，当useBuiltIns值为entry或usage时，有效。它可以设置为：2，3，{ version:2, proposals:true }</p>
+<p><strong><code>@babel/polyfill</code></strong><br>这个包是一个纯运行时的包，不是babel插件。它的作用是直接改写全局变量，从而让运行环境支持经过present-env转码后的代码</p>
+<p><strong><code>@babel/plugin-transform-runtime</code></strong></p>
+<ul>
+<li>它有两个作用：<ul>
+<li>将preset-env所产生的helpers函数提出到一个独立文件中，从而减少代码量</li>
+<li>建立运行时沙盒，避免全局污染</li>
+</ul>
+</li>
+</ul>
+<p><strong>corejs</strong></p>
+<p><strong>helpers</strong><br>是否要将所有helper函数提炼到另外一个公共文件中。默认为true。</p>
+<p>当使用@babel/plugin-trasnform-runtime之后，原本babel会直接在文件中创建一个helper函数，现在会采用require的方式，从@babel/runtime中引入这些函数，这样就可以减少代码量</p>
+<h3 id="polyfill了解下"><a href="#polyfill了解下" class="headerlink" title="polyfill了解下"></a>polyfill了解下</h3><p>babel 编译时只转换语法，几乎可以编译所有时新的 JavaScript 语法，但并不会转化BOM里面不兼容的API<br/><br>比如 <strong>Promise,Set,Symbol,Array.from,Array.is,async</strong> 等等的一些API<br/><br>这时候就需要 polyfill 来转转化这些API<br/><br>babel 转译语法需要一些plugin<br/><br>如<strong>babel-preset-es2015,stage-0,stage-1</strong>等等<br/><br>其中的 es2015 表示 babel会加载 es6 相关的编译模块，然后 stage-0 表示的是什么呢？<br/><br>stage 系列集合了一些对 es7 的草案支持的插件，由于是草案，所以作为插件的形式提供。<br/></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">stage<span class="number">-0</span> - Strawman: just an idea, possible Babel plugin.</span><br><span class="line">stage<span class="number">-1</span> - Proposal: <span class="keyword">this</span> is worth working on.</span><br><span class="line">stage<span class="number">-2</span> - Draft: initial spec.</span><br><span class="line">stage<span class="number">-3</span> - Candidate: complete spec and initial browser implementations.</span><br><span class="line">stage<span class="number">-4</span> - Finished: will be added to the next yearly release.</span><br></pre></td></tr></table></figure>
+
+<p>stage 是向下兼容  0&gt;1&gt;2&gt;3&gt;4 所包含的插件数量依次减少</p>
+<p>polyfill 有三种：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">babel-runtime</span><br><span class="line">babel-plugin-transform-runtime(推荐-默认依赖于babel-runtime)</span><br><span class="line">babel-polyfill</span><br><span class="line">&#96;</span><br></pre></td></tr></table></figure>
+<p>在webpack中，<strong>babel-plugin-transform-runtime 实际上是依赖babel-runtime</strong> <br/><br>因为babel编译es6到es5的过程中，babel-plugin-transform-runtime这个插件会自动polyfill es5不支持的特性，<br/><br>这些polyfill包就是在babel-runtime这个包里 core-js 、regenerator等  polyfill。<br/><br>babel-runtime和 babel-plugin-transform-runtime的区别是，相当一前者是手动挡而后者是自动挡，每当要转译一个api时都要手动加上require(‘babel-runtime’)，<br/><br>而babel-plugin-transform-runtime会由工具自动添加，主要的功能是为api提供沙箱的垫片方案，不会污染全局的api，因此适合用在第三方的开发产品中。<br/></p>
+<h3 id="babel7中-corejs-和-corejs2-的区别"><a href="#babel7中-corejs-和-corejs2-的区别" class="headerlink" title="babel7中 corejs 和 corejs2 的区别"></a>babel7中 corejs 和 corejs2 的区别</h3><p>最近在给项目升级babel7，有一些改变但是变化不大,在升级中发现 babel7 变化挺大的，包括插件和包。<br>其中一项功能特别赞，就是  @babel/preset-env  中的  useBuiltIns  选项，如果你设置了  usage ，babel 编绎的时候就不用整个 polyfills , 只加载你使用 polyfills，这样就可以减少包的大小。<br>在使用 babel 中还想减少代码，就需要引入 babel 的运行时：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add @babel/plugin-transform-runtime -D</span><br><span class="line">yarn add @babel/runtime</span><br></pre></td></tr></table></figure>
+<p>需要注意的是：</p>
+<ol>
+<li>两个包引入的范围不一样：一个在开发时引入，一个在运行时引入。</li>
+<li>plugin-transform-runtime 已经默认包括了 @babel/polyfill，因此不用在独立引入。</li>
+</ol>
+<p>在 plugin-transform-runtime 中有一个 corejs 很奇怪，可以设置成 false 或者 2。这是为什么这样？<br/><br>大家知道 corejs 是一个给低版本的浏览器提供接口的库，如 Promise, map, set 等。<br/><br>在 babel 中你设置成 false 或者不设置，就是引入的是 corejs 中的库，而且在全局中引入，也就是说侵入了全局的变量。可以观察以下的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这是你写的代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;, ms)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// babel 编绎成的代码</span></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">require</span>(<span class="string">"core-js/modules/es6.promise"</span>);  <span class="comment">// 这里可以看出是全局引入</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      resolve();</span><br><span class="line">    &#125;, ms);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你的全局有一个引入，防止引入的库影响全局，那你就需要引把 corejs 设置成2。下面就是设真置成2，编绎成的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> _interopRequireDefault = <span class="built_in">require</span>(<span class="string">"@babel/runtime-corejs2/helpers/interopRequireDefault"</span>);</span><br><span class="line"><span class="keyword">var</span> _promise = _interopRequireDefault(<span class="built_in">require</span>(<span class="string">"@babel/runtime-corejs2/core-js/promise"</span>)); <span class="comment">// 独立变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> _promise.default(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      resolve();</span><br><span class="line">    &#125;, ms);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以从编绎出的代码看到，Promise 代码变成了一个独立的变量 _promise，不会影响全局的 Promise。<br/><br>这样的好处是，引入的库者自己引入了一个变量，这样如果你引入的第三方库会对 Promise 进行一些自定义操作，这样就可以避免第三方库报错。<br/><br>还要注意一点是： 如果你设置了 corejs2，那你就需要加入下面的库:</p>
+<p><span style='display: block;text-align: left;'> corejs选项</span>|<span style='display: block;text-align: left;'> 安装命令</span>|<span style='display: block;text-align: left;'>里面包含的文件</span><br>–|:–:|:–:|–|<br>false |    yarn add @babel/runtime |  helpers、regenerator<br><strong>2</strong> |    <strong>yarn add  @babel/runtime-corejs2</strong> |  core-js、helpers、regenerator<br>3  | yarn add  @babel/runtime-corejs3 | 还支持实例属性（例如[].includes)</p>
+<p>参考文档：<br/><br><a href="https://babeljs.io/docs/en/babel-preset-env/" target="_blank" rel="noopener">babel-preset-env</a></p>
+<p><a href="https://babeljs.io/docs/en/babel-plugin-transform-runtime" target="_blank" rel="noopener">babel-plugin-transform-runtime</a></p>
+<p>runtime转换器插件主要做了三件事：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">当你使用generators/<span class="keyword">async</span>方法、函数时自动调用babel-runtime/regenerator</span><br><span class="line">当你使用ES6 的<span class="built_in">Map</span>或者内置的东西时自动调用babel-runtime/core-js</span><br><span class="line">移除内联babel helpers并替换使用babel-runtime/helpers来替换</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">transform-runtime优点</span><br><span class="line">    不会污染全局变量</span><br><span class="line">    多次使用只会打包一次</span><br><span class="line">    依赖统一按需引入,无重复引入,无多余引入</span><br><span class="line"></span><br><span class="line">transform-runtime缺点</span><br><span class="line">   不支持实例化的方法<span class="built_in">Array</span>.includes(x) 就不能转化</span><br><span class="line">   如果使用的API用的次数不是很多，那么transform-runtime 引入polyfill的包会比不是transform-runtime时大</span><br><span class="line"></span><br><span class="line">babel-polyfill则是通过改写全局prototype的方式实现，比较适合单独运行的项目。</span><br><span class="line">    开启babel-polyfill的方式，可以直接在代码中<span class="built_in">require</span>，或者在webpack的entry中添加，也可以在babel的env中设置useBuildins为<span class="literal">true</span>来开启。</span><br><span class="line">    但是babel-polyfill会有近<span class="number">100</span>K，</span><br><span class="line">    打包后代码冗余量比较大，</span><br><span class="line">    对于现代的浏览器,有些不需要polyfill，造成流量浪费</span><br><span class="line">    污染了全局对象</span><br><span class="line"></span><br><span class="line">@babel/runtime-corejs2包含三个文件夹：</span><br><span class="line">    core-js  引用core-js这个npm包</span><br><span class="line">    helpers  定义了一些处理新的语法关键字的帮助函数</span><br><span class="line">    regenerator  仅仅是引用regenerator-runtime这个npm包</span><br></pre></td></tr></table></figure>
+
+
+
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:feng960106@163.com">hfzvictory</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://file.jing999.cn/2019/01/16/workspace/Webpack/babel_polyfill/">http://file.jing999.cn/2019/01/16/workspace/Webpack/babel_polyfill/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://file.jing999.cn" target="_blank">hfzvictory</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/wechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/01/16/workspace/Js/es6/"><img class="prev_cover" data-src="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ES6-新增特性一览</div></div></a></div><div class="next-post pull_right"><a href="/2019/01/14/workspace/Webpack/use/"><img class="next_cover" data-src="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Webpack的使用</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '37fl65GwM0Ub4TbovXtyyFl7-gzGzoHsz',
+  appKey: 'ASnnLHANk3heLWLCBK6zbfiw',
+  notify: false,
+  verify: false,
+  placeholder: '输入评论...',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '20',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: true,
+  requiredFields: requiredFields
+});</script></div></article></main></div><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By hfzvictory</div><div class="framework-info"><span>Driven </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>京ICP备18059340号-1</span></a></div></div></footer><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.5" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/search/local-search.js"></script></body></html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jenkins自动化部署 | hfzvictory</title><meta name="description" content="Jenkins自动化部署 [[toc]] Jenkins学习记录 学前了解： linux  shelljenkinsjdk tomcat Java Development Kit是整个Java核心，包括Java运行环境、Java工具和Java基础类库。JDK作为JAVA开发的环境，不管做JAVA开发还是做安卓开发，都必须在电脑上安装JDKtomcat:由Apache组织提供的一种Web服务器,提供"><meta name="keywords" content="自动化部署"><meta name="author" content="hfzvictory,feng960106@163.com"><meta name="copyright" content="hfzvictory"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Jenkins自动化部署"><meta name="twitter:description" content="Jenkins自动化部署 [[toc]] Jenkins学习记录 学前了解： linux  shelljenkinsjdk tomcat Java Development Kit是整个Java核心，包括Java运行环境、Java工具和Java基础类库。JDK作为JAVA开发的环境，不管做JAVA开发还是做安卓开发，都必须在电脑上安装JDKtomcat:由Apache组织提供的一种Web服务器,提供"><meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Jenkins自动化部署"><meta property="og:url" content="http://file.jing999.cn/2020/01/16/workspace/Jenkins/base/"><meta property="og:site_name" content="hfzvictory"><meta property="og:description" content="Jenkins自动化部署 [[toc]] Jenkins学习记录 学前了解： linux  shelljenkinsjdk tomcat Java Development Kit是整个Java核心，包括Java运行环境、Java工具和Java基础类库。JDK作为JAVA开发的环境，不管做JAVA开发还是做安卓开发，都必须在电脑上安装JDKtomcat:由Apache组织提供的一种Web服务器,提供"><meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="article:published_time" content="2020-01-16T00:00:00.000Z"><meta property="article:modified_time" content="2020-06-22T02:36:08.482Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://file.jing999.cn/2020/01/16/workspace/Jenkins/base/"><link rel="prev" title="配置WS" href="http://file.jing999.cn/2020/01/16/other/ws-configure/"><link rel="next" title="react事件委托机制" href="http://file.jing999.cn/2019/11/17/workspace/Frame/react/event/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: hfzvictory","link":"链接: ","source":"来源: hfzvictory","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: false,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://ae01.alicdn.com/kf/H9ae3136bf5e440239fa2c611632fbd09H.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">104</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">99</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-Jenkins"><span class="toc-number">1.</span> <span class="toc-text">Why Jenkins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置jdk安装Java环境"><span class="toc-number">2.</span> <span class="toc-text">配置jdk安装Java环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-启动-Jenkins"><span class="toc-number">3.</span> <span class="toc-text">配置&#x2F;启动 Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#如果是wget-安装的话"><span class="toc-number">3.1.</span> <span class="toc-text">如果是wget 安装的话</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#登录"><span class="toc-number">3.2.</span> <span class="toc-text">登录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装插件"><span class="toc-number">4.</span> <span class="toc-text">安装插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#手动下载jenkins插件"><span class="toc-number">4.1.</span> <span class="toc-text">手动下载jenkins插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭防火墙"><span class="toc-number">5.</span> <span class="toc-text">关闭防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加项目"><span class="toc-number">6.</span> <span class="toc-text">添加项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置webhook"><span class="toc-number">7.</span> <span class="toc-text">配置webhook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#触发"><span class="toc-number">8.</span> <span class="toc-text">触发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建"><span class="toc-number">9.</span> <span class="toc-text">构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加服务器的私钥"><span class="toc-number">10.</span> <span class="toc-text">添加服务器的私钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置免费登录（同一台也要）"><span class="toc-number">11.</span> <span class="toc-text">配置免费登录（同一台也要）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建后操作"><span class="toc-number">12.</span> <span class="toc-text">构建后操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#邮件提醒"><span class="toc-number">13.</span> <span class="toc-text">邮件提醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jenkins权限设置错误"><span class="toc-number">14.</span> <span class="toc-text">Jenkins权限设置错误</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#修改config-xml"><span class="toc-number">14.1.</span> <span class="toc-text">修改config.xml</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jenkins调优"><span class="toc-number">15.</span> <span class="toc-text">Jenkins调优</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#卸载jenkins"><span class="toc-number">16.</span> <span class="toc-text">卸载jenkins</span></a></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div class="post-bg" id="nav" style="background-image: url(https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">hfzvictory</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Jenkins自动化部署</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-01-16 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-01-16</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-22 02:36:08"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-22</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Other/">Other</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Other/Jenkins%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/">Jenkins自动化部署</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 6 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><strong class='old-blog'>Jenkins自动化部署</strong></p>
+<p>[[toc]]</p>
+<p><strong>Jenkins学习记录</strong></p>
+<p>学前了解：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">linux  shell</span><br><span class="line">jenkins</span><br><span class="line">jdk tomcat </span><br><span class="line">Java Development Kit是整个Java核心，包括Java运行环境、Java工具和Java基础类库。JDK作为JAVA开发的环境，不管做JAVA开发还是做安卓开发，都必须在电脑上安装JDK</span><br><span class="line">tomcat:由Apache组织提供的一种Web服务器,提供对jsp和Servlet的支持。它是一种轻量级的javaWeb容器(服务器),也是当前应用最广的JavaWeb服务器(免费)</span><br><span class="line"></span><br><span class="line">node npm</span><br><span class="line">ssh</span><br><span class="line">git github</span><br><span class="line">docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Why-Jenkins"><a href="#Why-Jenkins" class="headerlink" title="Why Jenkins"></a>Why Jenkins</h3><p><code>是业界流行开源的持续集成的工具，广泛用于项目开发，具有自动化构建，测试，部署等功能</code></p>
+<p> CI 持续集成</p>
+<p> CD 持续部署</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/jenkins.jpeg'/>
+
+<h3 id="配置jdk安装Java环境"><a href="#配置jdk安装Java环境" class="headerlink" title="配置jdk安装Java环境"></a>配置jdk安装Java环境</h3><p><code>jenkins是java编写的，所以需要先安装jdk</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;src &#x2F;&#x2F;选择下载目录</span><br><span class="line"></span><br><span class="line">wget https:&#x2F;&#x2F;download.oracle.com&#x2F;otn&#x2F;java&#x2F;jdk&#x2F;8u221-b11&#x2F;230deb18db3e4014bb8e3e8324f81b43&#x2F;jdk-8u221-linux-x64.tar.gz</span><br><span class="line">wget http:&#x2F;&#x2F;img.zhufengpeixun.cn&#x2F;jdk1.8.0_211.tar.gz  &#x2F;&#x2F;下载目录备份</span><br><span class="line"></span><br><span class="line">tar -xzvf [name] &#x2F;&#x2F;解压</span><br><span class="line"></span><br><span class="line">mkdir &#x2F;usr&#x2F;java &#x2F;&#x2F;创建Java的目录</span><br><span class="line"></span><br><span class="line">cp -r [name]   &#x2F;usr&#x2F;java &#x2F;&#x2F;copy</span><br><span class="line"></span><br><span class="line">ln -s  &#x2F;usr&#x2F;java&#x2F;[name]&#x2F;bin&#x2F;java &#x2F;usr&#x2F;bin&#x2F;java   &#x2F;&#x2F;创建一个软连接 or 创建全局变量</span><br><span class="line"></span><br><span class="line">java -version &#x2F;&#x2F;查看版本号是否成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置-启动-Jenkins"><a href="#配置-启动-Jenkins" class="headerlink" title="配置/启动 Jenkins"></a>配置/启动 Jenkins</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cd /etc/yum.repos.d</span><br><span class="line"></span><br><span class="line">wget http:<span class="comment">//pkg.jenkins.io/redhat/jenkins.repo   //安装源</span></span><br><span class="line"></span><br><span class="line">rpm --<span class="keyword">import</span> http:<span class="comment">//pkg.jenkins.io/redhat/jenkins.io.key//导入验证的key</span></span><br><span class="line"></span><br><span class="line">yum install -y jenkins     <span class="comment">//yum安装</span></span><br><span class="line"></span><br><span class="line">service jenkins start/stop/restart</span><br><span class="line"></span><br><span class="line">打开 <span class="string">`http://120.79.229.197:8080`</span>  <span class="comment">//打开jenkins</span></span><br><span class="line"></span><br><span class="line">http:<span class="comment">//ip/exit //关闭jenkins服务.</span></span><br><span class="line">http:<span class="comment">//ip/reload //重新加载配置信息</span></span><br><span class="line">http:<span class="comment">//ip/restart //重启</span></span><br><span class="line"></span><br><span class="line">-------------</span><br><span class="line"></span><br><span class="line">systemctl start  mysqld.service</span><br><span class="line">systemctl start  docker</span><br><span class="line">docker ps -a</span><br><span class="line">docker start  [name]</span><br></pre></td></tr></table></figure>
+<h4 id="如果是wget-安装的话"><a href="#如果是wget-安装的话" class="headerlink" title="如果是wget 安装的话"></a>如果是wget 安装的话</h4><p><code>启动jenkins</code><br/><br>java -jar jenkins.war –httpPort=8081</p>
+<p><code>如果想要在linux后台一直运行，则要开始加nohup，在末尾加&amp;号</code><br/><br>nohup java -jar jenkins.war –httpPort=8081 &amp;</p>
+<p>启动后 会生成一个nohup.out输出，需要的话，可以tail -f nohup.out实时查看日志</p>
+<p><code>列出jenkins的所有进程</code><br/><br>ps -aux|grep jenkins</p>
+<p><code>杀死这个进程</code><br/><br>kill -9 [PID]</p>
+<h4 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h4><p>账号：admin <br/><br>密码：<code>cat /var/lib/jenkins/secrets/initialAdminPassword</code>（初始密码）</p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>首先重置安装源，切换到中国的镜像</p>
+<p>系统管理-&gt;插件管理-&gt;高级-&gt;升级的站点</p>
+<p><code>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</code> 清华大学的站点</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Generic Webhook Trigger  <span class="comment">//web触发器</span></span><br><span class="line"></span><br><span class="line">Publish Over SSH  <span class="comment">//通过ssh部署服务器</span></span><br><span class="line"></span><br><span class="line">nvm wrapper   <span class="comment">//提供node环境 </span></span><br><span class="line"></span><br><span class="line">Role-based Authorization Strategy<span class="comment">//增加用户的权限管理</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="手动下载jenkins插件"><a href="#手动下载jenkins插件" class="headerlink" title="手动下载jenkins插件"></a>手动下载jenkins插件</h4><p>插件下载地址：<code>http://updates.jenkins-ci.org/download/plugins/</code></p>
+<p>如果有插件一直安装失败的情况，可以从jenkins官网下载插件，然后导入到jenkins。</p>
+<p>示例：我从官方下载gitlab-plugin插件到本地，然后导入到jenkins中。</p>
+<p>在jenkins<code>插件管理-&gt;高级</code>选择上传插件进行安装。</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/plugin.png'/>
+
+
+<h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">设置开机启用防火墙：systemctl enable firewalld.service</span><br><span class="line">设置开机禁用防火墙：systemctl disable firewalld.service</span><br><span class="line">启动防火墙：systemctl start firewalld</span><br><span class="line">关闭防火墙：systemctl stop firewalld.service</span><br><span class="line">检查防火墙状态：systemctl status firewalld</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加项目"><a href="#添加项目" class="headerlink" title="添加项目"></a>添加项目</h3><p>新建一个任务[name]-&gt;构架一个自由风格的项目-&gt;确定</p>
+<p>源代码-&gt;git-&gt;<a href="https://github.com/hzfvictory/weapp.git-&gt;添加权限【git" target="_blank" rel="noopener">https://github.com/hzfvictory/weapp.git-&gt;添加权限【git</a> 的用户名和密码】-&gt;构建触发器(Generic Webhook Trigger)-&gt;应用保存</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/addGit.png'/>
+
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/trigger.png'/>
+
+<h3 id="配置webhook"><a href="#配置webhook" class="headerlink" title="配置webhook"></a>配置webhook</h3><p>此时可以构建了，但是需要在还给Git中添加Webhooks，否则不能自动化构建</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/webhooks.png'/>
+
+<p><code>http://JENKINS_URL/generic-webhook-trigger/invoke</code> </p>
+<p>JENKINS_URL格式为 <code>用户名:token@ip:8080</code></p>
+<p><strong>token生成的位置</strong><br/><br><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/token.png'/></p>
+<p>admin<br/><br>1108c27bdd32e70d8ba6ba7893bcf57450<br/><br>120.79.229.197:8080<br/><br><a href="http://admin:1108c27bdd32e70d8ba6ba7893bcf57450@120.79.229.197:8080/generic-webhook-trigger/invoke" target="_blank" rel="noopener">http://admin:1108c27bdd32e70d8ba6ba7893bcf57450@120.79.229.197:8080/generic-webhook-trigger/invoke</a></p>
+<h3 id="触发"><a href="#触发" class="headerlink" title="触发"></a>触发</h3><p>手动触发，查看日志是否成功<br/><br>代码默认目录,在控制台查看  cd /var/lib/jenkins/workspace/[name]</p>
+<p>也可以Git提交一版代码触发看是否成功</p>
+<h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><p>下拉任务名字-&gt;配置-&gt;构建环境（选中Run the build in an NVM managed environment，【我们自己下载的插件提供node环境】）-&gt;<br>输入node的版本号-&gt;构建-&gt;选择shell</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/nvm.png'/>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo $GIT_BRANCH</span><br><span class="line">npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br><span class="line">npm install -g yarn </span><br><span class="line">yarn config set registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br><span class="line">yarn install</span><br><span class="line">yarn global add @tarojs&#x2F;cli@1.3.14</span><br><span class="line">yarn build:h5</span><br><span class="line">tar -czvf dist.tar.gz dist&#x2F;h5</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加服务器的私钥"><a href="#添加服务器的私钥" class="headerlink" title="添加服务器的私钥"></a>添加服务器的私钥</h3><p>系统管理-&gt;系统设置-&gt;Publish over SSH</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/ssh.png'/>
+
+<h3 id="配置免费登录（同一台也要）"><a href="#配置免费登录（同一台也要）" class="headerlink" title="配置免费登录（同一台也要）"></a>配置免费登录（同一台也要）</h3><p>ssh-keygen -t rsa</p>
+<p>ssh-copy-id 120.79.229.197</p>
+<p><code>这里不配置免登录，在部署的时候，找不到要部署的服务器</code></p>
+<h3 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h3><p>下拉任务名字-&gt;配置-&gt;构建后操作-&gt;Send build artifacts over SSH<br><br/><br><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/deploy.png'/></p>
+<h3 id="邮件提醒"><a href="#邮件提醒" class="headerlink" title="邮件提醒"></a>邮件提醒</h3><p>1.系统管理-&gt;系统设置-&gt;Jenkins Location(系统管理员邮件地址) <a href="mailto:feng960106@163.com">feng960106@163.com</a></p>
+<p>2.系统管理-&gt;系统设置-&gt;Extended E-mail Notification</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/email.png'/>
+
+<p>3.系统管理-&gt;系统设置-&gt;邮件通知</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/nextEmail.png'/>
+
+<p>4.拉任务名字-&gt;配置-&gt;构建后操作-&gt;Editable Email Notification</p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/nextDeployEmail.png'/>
+<br/>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/always.png'/>
+
+<blockquote>
+<p>优化jenkins运行内存 vim /etc/sysconfig/jenkins</p>
+</blockquote>
+<h3 id="Jenkins权限设置错误"><a href="#Jenkins权限设置错误" class="headerlink" title="Jenkins权限设置错误"></a>Jenkins权限设置错误</h3><h4 id="修改config-xml"><a href="#修改config-xml" class="headerlink" title="修改config.xml"></a>修改config.xml</h4><p>先查看目录 find / -name jenkins</p>
+<ul>
+<li>cd /var/lib/jenkins</li>
+</ul>
+<p>先备份 cp config.xml hzf.xml</p>
+<p>删除以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;authorizationStrategy <span class="class"><span class="keyword">class</span></span>=<span class="string">"hudson.security.ProjectMatrixAuthorizationStrategy"</span>&gt; </span><br><span class="line">  ...</span><br><span class="line">&lt;<span class="regexp">/authorizationStrategy&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;securityRealm class="hudson.security.HudsonPrivateSecurityRealm"&gt;</span></span><br><span class="line"><span class="regexp">&lt;disableSignup&gt;true&lt;/</span>disableSignup&gt;</span><br><span class="line">&lt;enableCaptcha&gt;<span class="literal">false</span>&lt;<span class="regexp">/enableCaptcha&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>securityRealm&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动jenkins</strong></p>
+<p>service jenkins restart</p>
+<p><strong>再次访问Jenkins后，首先要设置登录认证。</strong></p>
+<img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src='/assets/img/security.png'/>
+
+
+<h3 id="Jenkins调优"><a href="#Jenkins调优" class="headerlink" title="Jenkins调优"></a>Jenkins调优</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 查看物理CPU个数</span><br><span class="line">cat &#x2F;proc&#x2F;cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</span><br><span class="line"></span><br><span class="line"># 查看每个物理CPU中core的个数(即核数)</span><br><span class="line">cat &#x2F;proc&#x2F;cpuinfo| grep &quot;cpu cores&quot;| uniq</span><br><span class="line"></span><br><span class="line"># 限制jenkins 启动占用内存</span><br><span class="line">vim &#x2F;etc&#x2F;sysconfig&#x2F;jenkins</span><br><span class="line">JENKINS_JAVA_OPTIONS&#x3D;&quot;-XX:MaxPermSize&#x3D;512m -Djava.awt.headless&#x3D;true&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cd /usr/mongodb/bin</span><br><span class="line">./mongod  --config /usr/local/mongodb/mongodb.conf</span><br><span class="line"></span><br><span class="line">pm2 start /home/admin/fenggeServer/bin/www --name=<span class="string">'fenggezaoxing'</span></span><br><span class="line">pm2 start /home/admin/workplaceServer/bin/www --name=<span class="string">'workplace'</span></span><br><span class="line">pm2 start /home/admin/transition/bin/www --name=<span class="string">'transition'</span></span><br><span class="line">pm2 start /home/admin/wangyiyunServer/app.js --name=<span class="string">'wangyiyunServer'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="卸载jenkins"><a href="#卸载jenkins" class="headerlink" title="卸载jenkins"></a>卸载jenkins</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">service jenkins stop</span><br><span class="line"> </span><br><span class="line">yum clean all</span><br><span class="line"> </span><br><span class="line">yum -y remove jenkins</span><br></pre></td></tr></table></figure></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:feng960106@163.com">hfzvictory</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://file.jing999.cn/2020/01/16/workspace/Jenkins/base/">http://file.jing999.cn/2020/01/16/workspace/Jenkins/base/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://file.jing999.cn" target="_blank">hfzvictory</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/">自动化部署</a></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/wechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/01/16/other/ws-configure/"><img class="prev_cover" data-src="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">配置WS</div></div></a></div><div class="next-post pull_right"><a href="/2019/11/17/workspace/Frame/react/event/"><img class="next_cover" data-src="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">react事件委托机制</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '37fl65GwM0Ub4TbovXtyyFl7-gzGzoHsz',
+  appKey: 'ASnnLHANk3heLWLCBK6zbfiw',
+  notify: false,
+  verify: false,
+  placeholder: '输入评论...',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '20',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: true,
+  requiredFields: requiredFields
+});</script></div></article></main></div><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By hfzvictory</div><div class="framework-info"><span>Driven </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>京ICP备18059340号-1</span></a></div></div></footer><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.5" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/search/local-search.js"></script></body></html>

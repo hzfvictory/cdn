@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>聊一聊前端换肤 | hfzvictory</title><meta name="description" content="聊一聊前端换肤 [[toc]] 前言最近在写公司的组件库，遇到的动态更换主题的需求，顺带研究一波。 一般来说换肤的需求分为两种：  一种是几种可供选择的颜色&#x2F;主题样式，进行选择切换，这种可供选择的主题切换不会很多 另一种是需要自定义色值（动态更换），或者通过取色板取色，可供选择的范围就很大了  如何实现对于可供选择的颜色&#x2F;主题样式换肤的实现 一个全局class控制样式切换  　　切换的时候js控制"><meta name="keywords" content="和振峰博客，web前端，node全栈工程师，hzfvictory"><meta name="author" content="hfzvictory,feng960106@163.com"><meta name="copyright" content="hfzvictory"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="聊一聊前端换肤"><meta name="twitter:description" content="聊一聊前端换肤 [[toc]] 前言最近在写公司的组件库，遇到的动态更换主题的需求，顺带研究一波。 一般来说换肤的需求分为两种：  一种是几种可供选择的颜色&#x2F;主题样式，进行选择切换，这种可供选择的主题切换不会很多 另一种是需要自定义色值（动态更换），或者通过取色板取色，可供选择的范围就很大了  如何实现对于可供选择的颜色&#x2F;主题样式换肤的实现 一个全局class控制样式切换  　　切换的时候js控制"><meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="og:type" content="article"><meta property="og:title" content="聊一聊前端换肤"><meta property="og:url" content="http://file.jing999.cn/2021/03/15/workspace/Js/theme/"><meta property="og:site_name" content="hfzvictory"><meta property="og:description" content="聊一聊前端换肤 [[toc]] 前言最近在写公司的组件库，遇到的动态更换主题的需求，顺带研究一波。 一般来说换肤的需求分为两种：  一种是几种可供选择的颜色&#x2F;主题样式，进行选择切换，这种可供选择的主题切换不会很多 另一种是需要自定义色值（动态更换），或者通过取色板取色，可供选择的范围就很大了  如何实现对于可供选择的颜色&#x2F;主题样式换肤的实现 一个全局class控制样式切换  　　切换的时候js控制"><meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="article:published_time" content="2021-03-15T00:00:00.000Z"><meta property="article:modified_time" content="2021-03-19T06:33:41.450Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://file.jing999.cn/2021/03/15/workspace/Js/theme/"><link rel="prev" title="JS添加水印功能" href="http://file.jing999.cn/2021/04/25/workspace/Js/water-mask/"><link rel="next" title="Axios 获取文件流导出 excel 表格" href="http://file.jing999.cn/2021/03/11/workspace/Js/export/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: hfzvictory","link":"链接: ","source":"来源: hfzvictory","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: false,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://ae01.alicdn.com/kf/H9ae3136bf5e440239fa2c611632fbd09H.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">104</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">99</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何实现"><span class="toc-number">2.</span> <span class="toc-text">如何实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于可供选择的颜色-主题样式换肤的实现"><span class="toc-number">3.</span> <span class="toc-text">对于可供选择的颜色&#x2F;主题样式换肤的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于制定动态色值换肤的实现"><span class="toc-number">4.</span> <span class="toc-text">对于制定动态色值换肤的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Element-UI的换肤功-示例预览"><span class="toc-number">4.1.</span> <span class="toc-text">Element-UI的换肤功 示例预览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#less的-modifyVars方法"><span class="toc-number">4.2.</span> <span class="toc-text">less的 modifyVars方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#css-变量方法"><span class="toc-number">4.3.</span> <span class="toc-text">css 变量方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div class="post-bg" id="nav" style="background-image: url(https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">hfzvictory</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">聊一聊前端换肤</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2021-03-15 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2021-03-15</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2021-03-19 06:33:41"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2021-03-19</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JS/">JS</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JS/%E8%81%8A%E4%B8%80%E8%81%8A%E5%89%8D%E7%AB%AF%E6%8D%A2%E8%82%A4/">聊一聊前端换肤</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 5 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><strong class='old-blog'>聊一聊前端换肤</strong></p>
+<p>[[toc]]</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近在写公司的组件库，遇到的动态更换主题的需求，顺带研究一波。</p>
+<p>一般来说换肤的需求分为两种：</p>
+<ol>
+<li>一种是几种可供选择的颜色/主题样式，进行选择切换，这种可供选择的主题切换不会很多</li>
+<li>另一种是需要自定义色值（动态更换），或者通过取色板取色，可供选择的范围就很大了</li>
+</ol>
+<h3 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h3><h3 id="对于可供选择的颜色-主题样式换肤的实现"><a href="#对于可供选择的颜色-主题样式换肤的实现" class="headerlink" title="对于可供选择的颜色/主题样式换肤的实现"></a>对于可供选择的颜色/主题样式换肤的实现</h3><ul>
+<li>一个全局class控制样式切换</li>
+</ul>
+<p>　　切换的时候js控制样式的切换</p>
+<ul>
+<li>JS改变href属性值切换样式表，例如：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link id=<span class="string">"theme"</span> href=<span class="string">"iread-theme.css"</span> rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span>&gt;</span><br><span class="line"><span class="comment">// js</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'#theme'</span>).href = <span class="string">'iread-update.css'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式需要维护几个主题样式表，js点击切换的时候通过改变css样式表链接来实现。 </p>
+<hr>
+<p>这种实现对于，颜色和主题多了的时候，维护起来就很麻烦，需要同时维护 n 个样式文件，并且使用JS改变href属性会带来加载延迟，样式切换不流畅，体验也不好。</p>
+<h3 id="对于制定动态色值换肤的实现"><a href="#对于制定动态色值换肤的实现" class="headerlink" title="对于制定动态色值换肤的实现"></a>对于制定动态色值换肤的实现</h3><p>如果是要实现动态换肤，自定义色值，那上面的几种方式就不适合了。 </p>
+<p>先看下已有的实现有哪些方法</p>
+<h4 id="Element-UI的换肤功-示例预览"><a href="#Element-UI的换肤功-示例预览" class="headerlink" title="Element-UI的换肤功 示例预览"></a>Element-UI的换肤功 <a href="https://elementui.github.io/theme-preview/#/zh-CN" target="_blank" rel="noopener">示例预览</a></h4><p>实现原理： <a href="https://github.com/ElemeFE/element/issues/3054" target="_blank" rel="noopener"> 官方解释</a></p>
+<ol>
+<li>先把默认主题文件中涉及到颜色的 CSS 值替换成关键词：<a href="https://github.com/ElementUI/theme-preview/blob/master/src/app.vue#L250-L274" target="_blank" rel="noopener">https://github.com/ElementUI/theme-preview/blob/master/src/app.vue#L250-L274</a></li>
+<li>根据用户选择的主题色生成一系列对应的颜色值：<a href="https://github.com/ElementUI/theme-preview/blob/master/src/utils/formula.json" target="_blank" rel="noopener">https://github.com/ElementUI/theme-preview/blob/master/src/utils/formula.json</a></li>
+<li>把关键词再换回刚刚生成的相应的颜色值：<a href="https://github.com/ElementUI/theme-preview/blob/master/src/utils/color.js" target="_blank" rel="noopener">https://github.com/ElementUI/theme-preview/blob/master/src/utils/color.js</a></li>
+<li>直接在页面上加 <code>style</code> 标签，把生成的样式填进去：<a href="https://github.com/ElementUI/theme-preview/blob/master/src/app.vue#L198-L211" target="_blank" rel="noopener">https://github.com/ElementUI/theme-preview/blob/master/src/app.vue#L198-L211</a></li>
+</ol>
+<p>实现原理十分暴力😂，还是比较麻烦的，看看还有没有更优雅的方法来实现。</p>
+<p><strong>在实战中发现的问题（不是基于开发组件库）:</strong></p>
+<ol>
+<li><p>spa跳转页面<strong>新增</strong>的css没有捕获，所以部分主题色就会失效 </p>
+<ul>
+<li><p>监听head引入style的个数，重新走下流程 效率低</p>
+</li>
+<li><p>直接编译所有的css样式 (按需加载和直接引入)线上/开发  建议</p>
+</li>
+</ul>
+</li>
+<li><p>行内的样式不能编译</p>
+</li>
+</ol>
+<p>当我们在写ui库的时候只要修改自身的样式就行了，不要干扰开发者定义的样式（比如行内样式，UI库的开发肯定不会用行内的😄）</p>
+<hr>
+<p>饿了么的采用的方式是，直接编译所有的index.css，导出的时候，把所有的<strong>组件css</strong>都编译过来然后在让开发者按需引入。</p>
+<h4 id="less的-modifyVars方法"><a href="#less的-modifyVars方法" class="headerlink" title="less的 modifyVars方法"></a>less的 modifyVars方法</h4><p>蚂蚁antd、有赞vant团队的更换主题色功能是用 less 提供的 <a href="http://lesscss.org/usage/#using-less-in-the-browser-modify-variables" target="_blank" rel="noopener">modifyVars</a> 的方式进行覆盖变量来实现。</p>
+<p>原理  : <strong>modifyVars方法是是基于 <code>less</code> 在浏览器中可以直接 <code>编译css 变量</code> 的特性来实现。</strong>所以在引入lessjs文件的时候需要<strong>通过link方式引入</strong>，然后基于less.js中的方法来进行修改变量。</p>
+<p>link方式引入主题色文件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet/less"</span> type=<span class="string">"text/css"</span> href=<span class="string">"./iread-theme.less"</span> /&gt;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * 它会找到所有如下的less 样式标签，使用已编译的css同步创建 style 标签。</span></span><br><span class="line"><span class="comment">  * 也就是说我们必须把代码中所有的less 都以link的方式来引入(可以统一导入一个less里面)，这样less.js 才能在浏览器端实现编译。</span></span><br><span class="line"><span class="comment">  * 注：使用less 来实现换肤要注意 less 文件在 html 中编写的位置（优先级），不然很可能被其他css 文件所干扰导致换肤失败</span></span><br><span class="line"><span class="comment">  * */</span></span><br></pre></td></tr></table></figure>
+
+<p>更改主题色事件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// color 传入颜色值</span></span><br><span class="line">handleColorChange (color) &#123;</span><br><span class="line">    less.modifyVars(&#123;  <span class="comment">// 调用 `less.modifyVars` 方法来改变变量值'</span></span><br><span class="line">       @themeColor:color</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'修改成功'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p> 可在webpack配置更改变量</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">    loader: <span class="string">'less-loader'</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">       <span class="comment">// 若 less-loader 版本小于 6.0，请移除 lessOptions 这一级，直接配置选项。</span></span><br><span class="line">      lessOptions: &#123;</span><br><span class="line">        javascriptEnabled: <span class="literal">true</span>,</span><br><span class="line">          modifyVars: &#123;</span><br><span class="line">            <span class="comment">// 直接覆盖变量</span></span><br><span class="line">            <span class="string">'text-color'</span>: <span class="string">'#111'</span>,</span><br><span class="line">            <span class="string">'border-color'</span>: <span class="string">'#eee'</span>,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; </span><br><span class="line">   &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>less方法仅限于用less的项目才能使用，查了下Sass是没有类似 less.modifyVars 这种方法的；</p>
+<p>Sass 的变量不是纯声明式的，⽽是类似 JavaScript 的变量, 后面的更新不会影响前面的</p>
+<p>也就是一个变量在不同阶段值是不同的。而 Less 中生效的只有最后一次赋值，统一修改 Sass 变量作用范围不明，不能确保符合预期</p>
+<p>需要在 Sass 中抽取可定制的全局变量，需要使用 <code>!default</code> 声明变量，然后把用来覆盖的变量声明写在<strong>前面</strong>,例如：</p>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://tva1.sinaimg.cn/large/008eGmZEly1goo89u8g8pj30ik06et9h.jpg" alt=""></p>
+<h4 id="css-变量方法"><a href="#css-变量方法" class="headerlink" title="css 变量方法"></a>css 变量方法</h4><p>如果项目里用的不是less, 那么还是用css的方法，通用且容易操作，使用<strong>css变量</strong>来进行主题色的修改，替换主题色变量，然后用setProperty来进行动态修改</p>
+<p>用法就是给变量加<code>--</code>前缀，涉及到主题色的都改成<code>var(--themeColor)</code>这种方式</p>
+<p>用之前看下兼容性</p>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://tva1.sinaimg.cn/large/008eGmZEly1goo8hf6vwpj31g20kjjx7.jpg" alt=""></p>
+<p>大部分主流浏览器还是支持的，而且主要是操作起来够简便。</p>
+<p>用法举例：</p>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="https://tva1.sinaimg.cn/large/008eGmZEly1goo8dm8qrpj30q40aoab1.jpg" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>个人更加偏向于 <code>antd</code> 或者基于 <code>css 自定义变量</code> 的写法，不过 <code>antd</code> 基于 <code>less</code> 在浏览器中的编译，less 官方文档中也说到了:</p>
+<blockquote>
+<p>This is because less is a large javascript file and compiling less before the user can see the page means a delay for the user. In addition, consider that mobile devices will compile slower.</p>
+</blockquote>
+<p>所以编译速度是一个要考虑的问题。然后是css 自定义变量要考虑的可能就是浏览器中的兼容性问题了，不过感觉 css 自定义变量的支持度还是挺友好了的🤣🤣。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:feng960106@163.com">hfzvictory</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://file.jing999.cn/2021/03/15/workspace/Js/theme/">http://file.jing999.cn/2021/03/15/workspace/Js/theme/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://file.jing999.cn" target="_blank">hfzvictory</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/wechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2021/04/25/workspace/Js/water-mask/"><img class="prev_cover" data-src="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JS添加水印功能</div></div></a></div><div class="next-post pull_right"><a href="/2021/03/11/workspace/Js/export/"><img class="next_cover" data-src="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Axios 获取文件流导出 excel 表格</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '37fl65GwM0Ub4TbovXtyyFl7-gzGzoHsz',
+  appKey: 'ASnnLHANk3heLWLCBK6zbfiw',
+  notify: false,
+  verify: false,
+  placeholder: '输入评论...',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '20',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: true,
+  requiredFields: requiredFields
+});</script></div></article></main></div><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By hfzvictory</div><div class="framework-info"><span>Driven </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>京ICP备18059340号-1</span></a></div></div></footer><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.5" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/search/local-search.js"></script></body></html>

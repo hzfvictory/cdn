@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>安全问题 | hfzvictory</title><meta name="robots" content="noindex"><meta name="description" content="安全问题 [[toc]] 同源策略如果两个 URL 的协议、域名和端口都相同，我们就称这两个 URL 同源。  同源策略限制了来自不同源的 JavaScript 脚本对当前 DOM 对象读和写的操作。 同源策略限制了不同源的站点读取当前站点的 Cookie、IndexDB、LocalStorage 等数据。 同源策略限制了通过 XMLHttpRequest 等方式将站点的数据发送给不同源的站点。"><meta name="keywords" content="和振峰博客，web前端，node全栈工程师，hzfvictory"><meta name="author" content="hfzvictory,feng960106@163.com"><meta name="copyright" content="hfzvictory"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="安全问题"><meta name="twitter:description" content="安全问题 [[toc]] 同源策略如果两个 URL 的协议、域名和端口都相同，我们就称这两个 URL 同源。  同源策略限制了来自不同源的 JavaScript 脚本对当前 DOM 对象读和写的操作。 同源策略限制了不同源的站点读取当前站点的 Cookie、IndexDB、LocalStorage 等数据。 同源策略限制了通过 XMLHttpRequest 等方式将站点的数据发送给不同源的站点。"><meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="og:type" content="article"><meta property="og:title" content="安全问题"><meta property="og:url" content="http://file.jing999.cn/2019/07/16/workspace/Interviews/security/"><meta property="og:site_name" content="hfzvictory"><meta property="og:description" content="安全问题 [[toc]] 同源策略如果两个 URL 的协议、域名和端口都相同，我们就称这两个 URL 同源。  同源策略限制了来自不同源的 JavaScript 脚本对当前 DOM 对象读和写的操作。 同源策略限制了不同源的站点读取当前站点的 Cookie、IndexDB、LocalStorage 等数据。 同源策略限制了通过 XMLHttpRequest 等方式将站点的数据发送给不同源的站点。"><meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="article:published_time" content="2019-07-16T00:00:00.000Z"><meta property="article:modified_time" content="2020-06-04T08:54:31.648Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://file.jing999.cn/2019/07/16/workspace/Interviews/security/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: hfzvictory","link":"链接: ","source":"来源: hfzvictory","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: false,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://ae01.alicdn.com/kf/H9ae3136bf5e440239fa2c611632fbd09H.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">104</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">99</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#同源策略"><span class="toc-number">1.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS，跨站脚本攻击-Cross-Site-Scripting"><span class="toc-number">2.</span> <span class="toc-text">XSS，跨站脚本攻击(Cross Site Scripting)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#存储型-XSS-攻击"><span class="toc-number">2.1.</span> <span class="toc-text">存储型 XSS 攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反射型-XSS-攻击"><span class="toc-number">2.2.</span> <span class="toc-text">反射型 XSS 攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于-DOM-的-XSS-攻击"><span class="toc-number">2.3.</span> <span class="toc-text">基于 DOM 的 XSS 攻击</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF-跨站请求伪造（Cross-site-request-forgery）"><span class="toc-number">3.</span> <span class="toc-text">CSRF,跨站请求伪造（Cross-site request forgery）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL注入"><span class="toc-number">4.</span> <span class="toc-text">SQL注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点击劫持"><span class="toc-number">5.</span> <span class="toc-text">点击劫持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window-opener-安全问题"><span class="toc-number">6.</span> <span class="toc-text">window.opener 安全问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件上传漏洞"><span class="toc-number">7.</span> <span class="toc-text">文件上传漏洞</span></a></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div class="post-bg" id="nav" style="background-image: url(https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">hfzvictory</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">安全问题</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-07-16 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-07-16</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-04 08:54:31"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-04</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Interview/">Interview</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.8k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 8 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><strong class='old-blog'>安全问题</strong></p>
+<p>[[toc]]</p>
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>如果两个 URL 的协议、域名和端口都相同，我们就称这两个 URL 同源。</p>
+<ul>
+<li>同源策略限制了来自不同源的 JavaScript 脚本对当前 DOM 对象读和写的操作。</li>
+<li>同源策略限制了不同源的站点读取当前站点的 Cookie、IndexDB、LocalStorage 等数据。</li>
+<li>同源策略限制了通过 XMLHttpRequest 等方式将站点的数据发送给不同源的站点。</li>
+</ul>
+<p>解决同源策略的方法：</p>
+<ul>
+<li><p><code>跨文档消息机制</code>:可以通过 window.postMessage 的 JavaScript 接口来和不同源的 DOM 进行通信。</p>
+</li>
+<li><p><code>跨域资源共享（CORS）</code>:跨域资源在服务端设置允许跨域，就可以进行跨域访问控制，从而使跨域数据传输得以安全进行。</p>
+</li>
+<li><p><code>内容安全策略（CSP）</code>:主要以白名单的形式配置可信任的内容来源，在网页中，能够使白名单中的内容正常执行（包含 JS，CSS，Image 等等），而非白名单的内容无法正常执行。</p>
+<h3 id="XSS，跨站脚本攻击-Cross-Site-Scripting"><a href="#XSS，跨站脚本攻击-Cross-Site-Scripting" class="headerlink" title="XSS，跨站脚本攻击(Cross Site Scripting)"></a>XSS，跨站脚本攻击(Cross Site Scripting)</h3><h4 id="存储型-XSS-攻击"><a href="#存储型-XSS-攻击" class="headerlink" title="存储型 XSS 攻击"></a>存储型 XSS 攻击</h4><p>利用漏洞提交恶意 JavaScript 代码，比如在input, textarea等所有可能输入文本信息的区域，输入<code>&lt;script src=&quot;http://恶意网站&quot;&gt;&lt;/script&gt;</code>等，提交后信息会存在服务器中，当用户再次打开网站请求到相应的数据，打开页面，恶意脚本就会将用户的 Cookie 信息等数据上传到黑客服务器。</p>
+<h4 id="反射型-XSS-攻击"><a href="#反射型-XSS-攻击" class="headerlink" title="反射型 XSS 攻击"></a>反射型 XSS 攻击</h4><p>用户将一段含有恶意代码的请求提交给 Web 服务器，Web 服务器接收到请求时，又将恶意代码反射给了浏览器端，这就是反射型 XSS 攻击。<br>在现实生活中，黑客经常会通过 QQ 群或者邮件等渠道诱导用户去点击这些恶意链接，所以对于一些链接我们一定要慎之又慎。</p>
+<p><code>Web 服务器不会存储反射型 XSS 攻击的恶意脚本，这是和存储型 XSS 攻击不同的地方。</code></p>
+<h4 id="基于-DOM-的-XSS-攻击"><a href="#基于-DOM-的-XSS-攻击" class="headerlink" title="基于 DOM 的 XSS 攻击"></a>基于 DOM 的 XSS 攻击</h4><p>基于 DOM 的 XSS 攻击是不牵涉到页面 Web 服务器的。它的特点是在 Web 资源传输过程或者在用户使用页面的过程中修改 Web 页面的数据。比如利用工具(如Burpsuite)扫描目标网站所有的网页并自动测试写好的注入脚本等。</p>
+</li>
+</ul>
+<p>预防策略：</p>
+<ol>
+<li>将cookie等敏感信息设置为httponly，禁止Javascript通过<code>document.cookie</code>获得</li>
+<li>对所有的输入做严格的校验尤其是在服务器端，过滤掉任何不合法的输入，比如手机号必须是数字，通常可以采用正则表达式.</li>
+<li>净化和过滤掉不必要的html标签，比如：<code>&lt;iframe&gt;, alt,&lt;script&gt;</code> ;净化和过滤掉不必要的Javascript的事件标签，比如：<code>onclick, onfocus</code>等</li>
+<li>转义单引号，双引号，尖括号等特殊字符，可以采用htmlencode编码 或者过滤掉这些特殊字符</li>
+<li>CSP,CSP 全称为 Content Security Policy，即内容安全策略。主要以白名单的形式配置可信任的内容来源，在网页中，能够使白名单中的内容正常执行（包含 JS，CSS，Image 等等），而非白名单的内容无法正常执行，从而减少跨站脚本攻击（XSS），当然，也能够减少运营商劫持的内容注入攻击。<br>配置方式：<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1、meta</span></span><br><span class="line"></span><br><span class="line">&lt;meta http-equiv=<span class="string">"Content-Security-Policy"</span> content=<span class="string">"script-src 'self'"</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2、Http 头部</span></span><br><span class="line"></span><br><span class="line">Content-Security-Policy:</span><br><span class="line">script-src <span class="string">'unsafe-inline'</span> <span class="string">'unsafe-eval'</span> <span class="string">'self'</span> *<span class="number">.54</span>php.cn *.yunetidc.com *.baidu.com *.cnzz.com *.duoshuo.com *.jiathis.com;report-uri /error/csp</span><br></pre></td></tr></table></figure>
+<h3 id="CSRF-跨站请求伪造（Cross-site-request-forgery）"><a href="#CSRF-跨站请求伪造（Cross-site-request-forgery）" class="headerlink" title="CSRF,跨站请求伪造（Cross-site request forgery）"></a>CSRF,跨站请求伪造（Cross-site request forgery）</h3>引诱用户打开黑客的网站，在黑客的网站中，利用用户的登录状态发起的跨站请求。</li>
+</ol>
+<p>发起 CSRF 攻击的三个必要条件：</p>
+<ol>
+<li>目标站点一定要有 CSRF 漏洞；</li>
+<li>用户要登录过目标站点，并且在浏览器上保持有该站点的登录状态；</li>
+<li>需要用户打开一个第三方站点，如黑客的站点等。</li>
+</ol>
+<p>预防策略：</p>
+<ol>
+<li>充分利用好 Cookie 的 SameSite 属性。</li>
+</ol>
+<p>SameSite 选项通常有 Strict、Lax 和 None 三个值。</p>
+<ul>
+<li>SameSite 的值是 Strict，那么浏览器会完全禁止第三方 Cookie。</li>
+<li>Lax 相对宽松一点。在跨站点的情况下，从第三方站点的链接打开和从第三方站点提交 Get 方式的表单这两种方式都会携带 Cookie。但如果在第三方站点中使用 Post 方法，或者通过 img、iframe 等标签加载的 URL，这些场景都不会携带 Cookie。</li>
+<li>而如果使用 None 的话，在任何情况下都会发送 Cookie 数据。<br>如：<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>-cookie: 1P_JAR=2019-10-20-06; expires=Tue, 19-Nov-2019 06:36:21 GMT; path=/; domain=.google.com; SameSite=none</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li>验证请求的来源站点</li>
+</ol>
+<p>在服务器端验证请求来源的站点，就是验证 HTTP 请求头中的 <code>Origin</code> 和 <code>Referer</code> 属性。Referer 是 HTTP 请求头中的一个字段，记录了该 HTTP 请求的来源地址，而O rigin 属性只包含了域名信息，并没有包含具体的 URL 路径。这是 Origin 和 Referer 的一个主要区别。</p>
+<p>服务器的策略是优先判断 Origin，如果请求头中没有包含 Origin 属性，再根据实际情况判断是否使用 Referer 值。</p>
+<ol start="3">
+<li>在请求地址中添加 token 并验证</li>
+</ol>
+<p>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。因此要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
+<ol start="4">
+<li>在 HTTP 头中自定义属性并验证</li>
+</ol>
+<p>这种方法也是使用 token 并进行验证，和上一种方法不同的是，这里并不是把 token 以参数的形式置于 HTTP 请求之中，而是把它放到 HTTP 头中自定义的属性里。通过 XMLHttpRequest 这个类，可以一次性给所有该类请求加上 csrftoken 这个 HTTP 头属性，并把 token 值放入其中。这样解决了上种方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求的地址不会被记录到浏览器的地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中去。</p>
+<p>然而这种方法的局限性非常大。XMLHttpRequest 请求通常用于 Ajax 方法中对于页面局部的异步刷新，并非所有的请求都适合用这个类来发起，而且通过该类请求得到的页面不能被浏览器所记录下，从而进行前进，后退，刷新，收藏等操作，给用户带来不便。另外，对于没有进行 CSRF 防护的遗留系统来说，要采用这种方法来进行防护，要把所有请求都改为 XMLHttpRequest 请求，这样几乎是要重写整个网站，这代价无疑是不能接受的。</p>
+<h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>拼接 SQL 时未仔细过滤，黑客可提交畸形数据改变语义。比如查某个文章，提交了这样的数据<code>id=-1 or 1=1</code>等。1=1 永远是true，导致where语句永远是ture.那么查询的结果相当于整张表的内容，攻击者就达到了目的。或者，通过屏幕上的报错提示推测 SQL 语句等。</p>
+<p>预防策略：</p>
+<ol>
+<li>禁止目标网站利用动态拼接字符串的方式访问数据库</li>
+<li>减少不必要的数据库抛出的错误信息</li>
+<li>对数据库的操作赋予严格的权限控制</li>
+<li>净化和过滤掉不必要的SQL保留字，比如：where, or, exec 等</li>
+</ol>
+<h3 id="点击劫持"><a href="#点击劫持" class="headerlink" title="点击劫持"></a>点击劫持</h3><ul>
+<li>诱使用户点击看似无害的按钮（实则点击了透明 iframe 中的按钮）.</li>
+<li>监听鼠标移动事件，让危险按钮始终在鼠标下方.</li>
+<li>使用 HTML5 拖拽技术执行敏感操作（例如 deploy key）.</li>
+</ul>
+<p>预防策略：</p>
+<ol>
+<li>服务端添加 X-Frame-Options 响应头,这个 HTTP 响应头是为了防御用 iframe 嵌套的点击劫持攻击。 这样浏览器就会阻止嵌入网页的渲染。</li>
+<li>JS 判断顶层视口的域名是不是和本页面的域名一致，不一致则不允许操作，<code>top.location.hostname === self.location.hostname</code>；</li>
+<li>敏感操作使用更复杂的步骤（验证码、输入项目名称以删除）。<h3 id="window-opener-安全问题"><a href="#window-opener-安全问题" class="headerlink" title="window.opener 安全问题"></a>window.opener 安全问题</h3>window.opener 表示打开当前窗体页面的的父窗体的是谁。例如，在 A 页面中，通过一个带有 target=”_blank” 的 a 标签打开了一个新的页面 B，那么在 B 页面里，window.opener 的值为 A 页面的 window 对象。</li>
+</ol>
+<p>一般来说，打开同源(域名相同)的页面，不会有什么问题。但对于跨域的外部链接来说，存在一个被钓鱼的风险。比如你正在浏览购物网站，从当前网页打开了某个外部链接，在打开的外部页面，可以通过 window.opener.location 改写来源站点的地址。利用这一点，将来源站点改写到钓鱼站点页面上，例如跳转到伪造的高仿购物页面，当再回到购物页面的时候，是很难发现购物网站的地址已经被修改了的，这个时候你的账号就存在被钓鱼的可能了。</p>
+<p>预防策略：</p>
+<ol>
+<li>设置 rel 属性<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">"https://xxxx"</span> rel=<span class="string">"noopener noreferrer"</span>&gt; 外链 &lt;a&gt;</span><br></pre></td></tr></table></figure>
+rel=noopener 规定禁止新页面传递源页面的地址，通过设置了此属性的链接打开的页面，其 window.opener 的值为 null。</li>
+<li>将外链替换为内部的跳转连接服务，跳转时先跳到内部地址，再由服务器 redirect 到外链。</li>
+<li>可以由 widow.open 打开外链。</li>
+</ol>
+<h3 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h3><p>服务器未校验上传的文件，致使黑客可以上传恶意脚本等方式。</p>
+<p>预防策略：</p>
+<ol>
+<li>用文件头来检测文件类型，使用白名单过滤(有些文件可以从其中一部分执行，只检查文件头无效，例如 PHP 等脚本语言)；</li>
+<li>上传后将文件彻底重命名并移动到不可执行的目录下；</li>
+<li>升级服务器软件以避免路径解析漏洞；</li>
+<li>升级用到的开源编辑器；</li>
+<li>管理后台设置强密码。</li>
+</ol>
+<!-- flag of hidden posts --></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:feng960106@163.com">hfzvictory</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://file.jing999.cn/2019/07/16/workspace/Interviews/security/">http://file.jing999.cn/2019/07/16/workspace/Interviews/security/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://file.jing999.cn" target="_blank">hfzvictory</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/wechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '37fl65GwM0Ub4TbovXtyyFl7-gzGzoHsz',
+  appKey: 'ASnnLHANk3heLWLCBK6zbfiw',
+  notify: false,
+  verify: false,
+  placeholder: '输入评论...',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '20',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: true,
+  requiredFields: requiredFields
+});</script></div></article></main></div><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By hfzvictory</div><div class="framework-info"><span>Driven </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>京ICP备18059340号-1</span></a></div></div></footer><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.5" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/search/local-search.js"></script></body></html>

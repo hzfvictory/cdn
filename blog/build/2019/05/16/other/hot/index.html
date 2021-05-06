@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>火 | hfzvictory</title><meta name="robots" content="noindex"><meta name="description" content="火 [[toc]] React Hooks2019 年 NPM 库下载量，React 再次荣登前端流行库榜首，用户数量还在不断增长。能保持第一位，React hooks 贡献满满。 WebAssemblyWebAssembly 是一种新的字节码格式，目前主流浏览器都已经支WebAssembly。是由主流浏览器厂商组成的 W3C 社区团体制定的一个新的规范。可以接近原生的性能运行，并为诸如C &#x2F; C"><meta name="keywords" content="和振峰博客，web前端，node全栈工程师，hzfvictory"><meta name="author" content="hfzvictory,feng960106@163.com"><meta name="copyright" content="hfzvictory"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="火"><meta name="twitter:description" content="火 [[toc]] React Hooks2019 年 NPM 库下载量，React 再次荣登前端流行库榜首，用户数量还在不断增长。能保持第一位，React hooks 贡献满满。 WebAssemblyWebAssembly 是一种新的字节码格式，目前主流浏览器都已经支WebAssembly。是由主流浏览器厂商组成的 W3C 社区团体制定的一个新的规范。可以接近原生的性能运行，并为诸如C &#x2F; C"><meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="og:type" content="article"><meta property="og:title" content="火"><meta property="og:url" content="http://file.jing999.cn/2019/05/16/other/hot/"><meta property="og:site_name" content="hfzvictory"><meta property="og:description" content="火 [[toc]] React Hooks2019 年 NPM 库下载量，React 再次荣登前端流行库榜首，用户数量还在不断增长。能保持第一位，React hooks 贡献满满。 WebAssemblyWebAssembly 是一种新的字节码格式，目前主流浏览器都已经支WebAssembly。是由主流浏览器厂商组成的 W3C 社区团体制定的一个新的规范。可以接近原生的性能运行，并为诸如C &#x2F; C"><meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg"><meta property="article:published_time" content="2019-05-16T00:00:00.000Z"><meta property="article:modified_time" content="2020-06-04T08:43:34.822Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://file.jing999.cn/2019/05/16/other/hot/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: hfzvictory","link":"链接: ","source":"来源: hfzvictory","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: false,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://ae01.alicdn.com/kf/H9ae3136bf5e440239fa2c611632fbd09H.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">104</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">99</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#React-Hooks"><span class="toc-number">1.</span> <span class="toc-text">React Hooks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebAssembly"><span class="toc-number">2.</span> <span class="toc-text">WebAssembly</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PWA"><span class="toc-number">3.</span> <span class="toc-text">PWA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GraphQL"><span class="toc-number">4.</span> <span class="toc-text">GraphQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Serverless"><span class="toc-number">5.</span> <span class="toc-text">Serverless</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5G"><span class="toc-number">6.</span> <span class="toc-text">5G</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#protobuf"><span class="toc-number">7.</span> <span class="toc-text">protobuf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Typescript"><span class="toc-number">8.</span> <span class="toc-text">Typescript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flutter"><span class="toc-number">9.</span> <span class="toc-text">Flutter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小程序"><span class="toc-number">10.</span> <span class="toc-text">小程序</span></a></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div class="post-bg" id="nav" style="background-image: url(https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">hfzvictory</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/todos"><i class="fa-fw fa fa-battery-three-quarters"></i><span> Todos</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bicycle" aria-hidden="true"></i><span> 喜好</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/photos"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">火</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-05-16 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-05-16</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-04 08:43:34"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-04</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 3 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><strong class='old-blog'>火</strong></p>
+<p>[[toc]]</p>
+<h3 id="React-Hooks"><a href="#React-Hooks" class="headerlink" title="React Hooks"></a>React Hooks</h3><p>2019 年 NPM 库下载量，React 再次荣登前端流行库榜首，用户数量还在不断增长。能保持第一位，React hooks 贡献满满。</p>
+<h3 id="WebAssembly"><a href="#WebAssembly" class="headerlink" title="WebAssembly"></a>WebAssembly</h3><p>WebAssembly 是一种新的字节码格式，目前主流浏览器都已经支WebAssembly。是由主流浏览器厂商组成的 W3C 社区团体制定的一个新的规范。可以接近原生的性能运行，并为诸如C / C ++等语言提供一个编译目标，以便它们可以在 Web 上运行。它也被设计为可以与 JavaScript 共存，允许两者一起工作。可以突破前端 3D game、 VR/AR 、 机器视觉、图像处理等运行速度瓶颈。<br>和 JS 需要解释执行不同的是，WebAssembly 字节码和底层机器码很相似，可以快速装载运行，因此性能相对于 JS 解释执行而言有了极大的提升。也就是说 WebAssembly 并不是一门编程语言，而是一份字节码标准，需要用高级编程语言编译出字节码放到 WebAssembly 虚拟机中才能运行，浏览器厂商需要做的就是根据 WebAssembly 规范实现虚拟机。有了 WebAssembly，在浏览器上可以跑任何语言。从 Coffee 到 TypeScript，到 Babel，这些都是需要转译为 js 才能被执行的，而 WebAssembly 是在浏览器里嵌入 vm，直接执行，不需要转译，执行效率自然高得多。</p>
+<h3 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h3><p>下一代 Web 应用。先说下当下 WebAPP 和 原生 APP。Web APP 对比 原生APP，开发成本低，适配多种移动设备，不用 IOS/安卓 多套代码，迭代更新容易，省去了审核、发包、各种渠道发布带来的时间损耗，无需安装成本，拿来即用。原生 APP也有它独到的优势，这些是 WebApp 所没有的优势我们也不知道以后会不会有突破。<br>PWA 能够显著提高应用加载速度，甚至让 web 应用可以在离线环境使用（Service Worker）。Web 应用能够像原生应用一样被添加到主屏、全屏执行 （Web App Manifest）进一步提高 Web 应用与操作系统集成能力，让 Web 应用能在未被激活时发起推送通知 （Push API 与 Notification API） 等等。</p>
+<h3 id="GraphQL"><a href="#GraphQL" class="headerlink" title="GraphQL"></a>GraphQL</h3><p>GraphQL 是一种新的 API 定义和查询语言，有可能成为新的 REST。它使 UI 组件易于声明式地获取数据，而不必关注后端实现细节。GraphQL 作为一种强大的抽象，可以加快应用开发速度，使代码更容易维护。新的一年，会作为技术点研究并在自己项目试用。</p>
+<h3 id="Serverless"><a href="#Serverless" class="headerlink" title="Serverless"></a>Serverless</h3><p><strong>阿里云的云服务</strong></p>
+<p>要看</p>
+<p>Nodejs 函数入口<br><a href="https://help.aliyun.com/document_detail/74757.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/74757.html</a></p>
+<p>.funignore<br><a href="https://github.com/alibaba/funcraft/blob/master/docs/usage/getting_started-zh.md#funignore" target="_blank" rel="noopener">https://github.com/alibaba/funcraft/blob/master/docs/usage/getting_started-zh.md#funignore</a></p>
+<p>fun deploy<br><a href="https://help.aliyun.com/document_detail/147077.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/147077.html</a></p>
+<p>—- 下面不建议看</p>
+<p>函数计算冷启动优化最佳实践<br><a href="https://help.aliyun.com/document_detail/140338.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/140338.html</a></p>
+<p>绑定自定义域名<br><a href="https://help.aliyun.com/document_detail/90722.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/90722.html</a></p>
+<p>CDN 回源至函数计算<br><a href="https://help.aliyun.com/document_detail/111175.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/111175.html</a></p>
+<p>配置 VPC 功能(访问rds)<br><a href="https://help.aliyun.com/knowledge_detail/72959.html" target="_blank" rel="noopener">https://help.aliyun.com/knowledge_detail/72959.html</a></p>
+<p>函数计算 Custom Runtime 使用集锦<br><a href="https://help.aliyun.com/document_detail/146732.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/146732.html</a></p>
+<p><a href="https://github.com/2627500295/serverless/tree/develop" target="_blank" rel="noopener">https://github.com/2627500295/serverless/tree/develop</a></p>
+<p>— Custom Runtime</p>
+<p>自定义 node 版本<br><a href="https://github.com/2627500295/function-compute-custom-runtime/tree/feature/custom-node-version" target="_blank" rel="noopener">https://github.com/2627500295/function-compute-custom-runtime/tree/feature/custom-node-version</a></p>
+<p>使用 babel 运行<br><a href="https://github.com/2627500295/function-compute-custom-runtime/tree/feature/custom-runtime-babel" target="_blank" rel="noopener">https://github.com/2627500295/function-compute-custom-runtime/tree/feature/custom-runtime-babel</a></p>
+<h3 id="5G"><a href="#5G" class="headerlink" title="5G"></a>5G</h3><p>2019年一个绕不开的话题就是5G。⾸先，5G 带宽的⼤幅提升带来传统 Web ⻚⾯复杂度的进⼀步提升，如同 2G 到 4G 变⾰过程中⻚⾯从 WAP 的纯⽂本超链接时代变⾰到 4G 全图⽚视频时代。5G 对于⻚⾯的变⾰必将是巨⼤的，但肯定不会⼀蹴⽽就。因为相应的配套设施也需要逐步完善，如硬件性能和浏览器的处理速度。⽽服务端渲染（SSR）肯定是其中⼀个捷径，轻前端重后台，5G 是桥梁，把渲染放后台，不像同构那么简单，需要关注和优化渲染性能。WebAssembly 或许会在这个机遇下得到快速发展，因为它可以⽆缝对接后台多种语⾔，⽽后台渲染的优化也会带来前端⻚⾯研发模式和技术架构的变⾰。</p>
+<h3 id="protobuf"><a href="#protobuf" class="headerlink" title="protobuf"></a>protobuf</h3><h3 id="Typescript"><a href="#Typescript" class="headerlink" title="Typescript"></a>Typescript</h3><h3 id="Flutter"><a href="#Flutter" class="headerlink" title="Flutter"></a>Flutter</h3><h3 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h3><!-- flag of hidden posts --></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:feng960106@163.com">hfzvictory</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://file.jing999.cn/2019/05/16/other/hot/">http://file.jing999.cn/2019/05/16/other/hot/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://file.jing999.cn" target="_blank">hfzvictory</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://tva1.sinaimg.cn/large/007S8ZIlly1gegal5ikmoj30u00xpe81.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/wechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="/img/alipay.png" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '37fl65GwM0Ub4TbovXtyyFl7-gzGzoHsz',
+  appKey: 'ASnnLHANk3heLWLCBK6zbfiw',
+  notify: false,
+  verify: false,
+  placeholder: '输入评论...',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '20',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: true,
+  requiredFields: requiredFields
+});</script></div></article></main></div><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By hfzvictory</div><div class="framework-info"><span>Driven </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>京ICP备18059340号-1</span></a></div></div></footer><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.5" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/search/local-search.js"></script></body></html>
