@@ -6,3 +6,15 @@
    - 新博客的静态资源
 - ssr
    - react-ssr静态资源
+
+
+
+
+
+
+
+```text
+https://gcore.jsdelivr.net/gh/hzfvictory/cdn@master/$path
+$path  = newBlog/img/banner/0.jpg
+```
+
